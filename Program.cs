@@ -4,12 +4,22 @@ namespace Numbers_Game
 {
     class Program
     {
+        //mthod that shows elemenents in array
+        public static string GetNumbersInArray(int[] arr)
+        {
+            string str = "Array: { ";
+            foreach(int num in arr) 
+            {
+                str += $"{Convert.ToString(num)}, ";
+            }
+            return $"{str}}}";
+        }
 
-        /*Prompt user to "Enter a number greater than zero"
-        Utilize the Convert.ToInt32() method to convert the user’s input to an integer.
-        Instantiate a new integer array that is the size the user just inputted.
-        Call the Populate method.
-        arguments: integer array
+        /*-------Prompt user to "Enter a number greater than zero"
+        -----------Utilize the Convert.ToInt32() method to convert the user’s input to an integer.
+        ------------Instantiate a new integer array that is the size the user just inputted.
+        ---------Call the Populate method.
+        ------arguments: integer array
         Capture the sum by calling the GetSum method.
         arguments: integer array
         Capture the product by calling the GetProduct method.
@@ -20,19 +30,38 @@ namespace Numbers_Game
         */
         static void StartSequence()
         {
-
+            try
+            {
+                Console.WriteLine("Welcome to my game! Let's do some math!");
+                Console.WriteLine("Enter a number greater than zero");
+                int sizeInput = Convert.ToInt32(Console.ReadLine());
+                int [] inputArray = new int[sizeInput];
+                Populate(inputArray);
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
         }
-        /*The logic within the method should:
-        Iterate through the array and prompt the user to enter a specific number. Example: “Please enter a number 1/6” (indicate to the user what number they are inputting)
-        Utilize the Convert.ToInt32 method to convert the user’s input to an integer (Remember not to directly manipulate the user’s input. Store the response into a string first).
-        Add the number just inputted into the array.
-        Repeat this process until all numbers have been requested and the array is filled.
-        Return the populated array
-        Expected Exceptions:
-        No expected exceptions. Not even a generic exception. StartSequence will already capture your FormatException error.
-        */
+
         static int[] Populate(int[] arr)
         {
+            try
+            {
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    Console.WriteLine($"Please enter a number {i}/{arr.Length}");
+                    int input = Convert.ToInt32(Console.ReadLine());
+                    arr[i] = input;
+                    Console.WriteLine(GetNumbersInArray(arr));
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
             return arr;
         }
 
@@ -46,6 +75,15 @@ namespace Numbers_Game
         */
         static int GetSum(int[] arr)
         {
+            try
+            {
+                
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
             return 0;
         }
 
@@ -61,6 +99,15 @@ namespace Numbers_Game
         */
         static int GetProduct(int [] arr)
         {
+            try
+            {
+                
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
             return 0;
         }
 
@@ -77,11 +124,20 @@ namespace Numbers_Game
         */
         static int GetQuotient(int[] arr)
         {
+            try
+            {
+                
+            }
+            catch (Exception)
+            {
+                
+            throw;
+            }
             return 0;
         }
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            StartSequence();
         }
     }
 }
