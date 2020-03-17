@@ -37,6 +37,7 @@ namespace Numbers_Game
                 int sizeInput = Convert.ToInt32(Console.ReadLine());
                 int [] inputArray = new int[sizeInput];
                 Populate(inputArray);
+                Console.WriteLine(GetSum(inputArray));
             }
             catch (Exception)
             {
@@ -66,8 +67,8 @@ namespace Numbers_Game
         }
 
         /*the logic within the method should:
-        Declare an integer variable named sum
-        Iterate through the array and populate the sum variable with the sum of all the numbers together.
+        ------Declare an integer variable named sum
+        ------Iterate through the array and populate the sum variable with the sum of all the numbers together.
         Add the capability to throw a custom exception if the sum is less than 20, with the message “Value of {sum} is too low”. (replace {sum} with the actual sum of the variable).
         return the sum.
         Expected Exceptions:
@@ -75,16 +76,20 @@ namespace Numbers_Game
         */
         static int GetSum(int[] arr)
         {
+            int sum = 0;
             try
             {
-                
+                foreach(int num in arr)
+                {
+                    sum += num;
+                }
             }
             catch (Exception)
             {
                 
                 throw;
             }
-            return 0;
+            return sum;
         }
 
         /*The logic within the method should:
