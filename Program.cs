@@ -17,11 +17,11 @@ namespace Numbers_Game
 
         static void StartSequence()
         {
-            int inputSize = 0;
-            int[] inputArray = new int[inputSize];
             int sum = 0;
             int product = 0;
             int quotient = 0;
+            int inputSize = 0;
+            int[] inputArray = new int[inputSize];
             
             try
             {
@@ -51,15 +51,15 @@ namespace Numbers_Game
             Console.WriteLine($"Your array is size: {inputSize}");
             Console.WriteLine($"The number in the array are: {GetNumbersInArray(inputArray)}");
             Console.WriteLine($"The sum of the array is: {sum}");
-            Console.WriteLine($"{sum} * = {product}");
-            Console.WriteLine($"{product} / = {quotient}");
+            Console.WriteLine($"{sum} * {product / sum} = {product}");
+            Console.WriteLine($"{product} / {product / quotient} = {quotient}");
         }
 
         static int[] Populate(int[] arr)
         {
             for (int i = 0; i < arr.Length; i++)
             {
-                Console.WriteLine($"Please enter a number {i}/{arr.Length}");
+                Console.WriteLine($"Please enter a number {i} of {arr.Length}");
                 int input = Convert.ToInt32(Console.ReadLine());
                 arr[i] = input;
                 Console.WriteLine(GetNumbersInArray(arr));
@@ -84,20 +84,23 @@ namespace Numbers_Game
         static int GetProduct(int [] arr, int sum)
         {
             int product = 1;
+            int input = 0;
             try
             {
                 Console.Write($"Select a random index number between 0 and {arr.Length - 1} ");
                 Console.Write($"to multiply {sum} with value: ");
-                int input = Convert.ToInt32(Console.ReadLine());
+                input = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine($"You chose index: {input} with value: {arr[input]}");
                 product = GetSum(arr) * arr[input];
-                return product; 
+
             }
             catch (OverflowException e)
             {
                 Console.WriteLine($"Index out of range: {e.Message}");
                 throw;
             }
+            Console.WriteLine($"The value of {sum} * {input} is {product}.");
+            return product; 
         }
 
         static Decimal GetQuotient(int prod)
@@ -123,7 +126,7 @@ namespace Numbers_Game
             }
             catch (Exception e)
             {
-                Console.WriteLine($"I am telling you 'nicely' that you did something wrong: {e.Message}");
+                Console.WriteLine($"Uh oh! Something went wrong. {e.Message}");
                 throw;
             }
             finally
