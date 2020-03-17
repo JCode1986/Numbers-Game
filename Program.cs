@@ -8,34 +8,47 @@ namespace Numbers_Game
         public static string GetNumbersInArray(int[] arr)
         {
             string str = "{ ";
-            foreach(int num in arr) 
+            for (int i = 0; i < arr.Length; i++) 
             {
-                str += $"{Convert.ToString(num)}, ";
+                str += $"{Convert.ToString(arr[i])}, ";
             }
             return $"{str}}}";
         }
 
         static void StartSequence()
         {
-            int sum = 0;
-            int product = 0;
-            int quotient = 0;
-            int inputSize = 0;
-            int[] inputArray = new int[inputSize];
-            
+            //data types
+            int sum, product, quotient = 0;
+            string input;
+
             try
             {
                 Console.WriteLine("Welcome to my game! Let's do some math!");
                 Console.WriteLine("Enter a number greater than zero");
-                inputSize = Convert.ToInt32(Console.ReadLine());
-                inputArray = new int[inputSize];
                 
+                //string type; always start with strings with readline
+                input = Console.ReadLine();
+
+                //converted to int
+                int inputSize = Convert.ToInt32(input);
+                int[] inputArray = new int[inputSize];
+                
+                //Call methods
                 Populate(inputArray);
                 sum = GetSum(inputArray);
                 product = GetProduct(inputArray, GetSum(inputArray));
                 quotient = Convert.ToInt32(GetQuotient(product));
+
+                //Summary
+                Console.WriteLine($"Your array is size: {inputSize}");
+                Console.WriteLine($"The number in the array are: {GetNumbersInArray(inputArray)}");
+                Console.WriteLine($"The sum of the array is: {sum}");
+                Console.WriteLine($"{sum} * {product / sum} = {product}");
+                Console.WriteLine($"{product} / {product / quotient} = {quotient}");
                 
             }
+            //catches exceptions
+
             catch (FormatException e)
             {
                 Console.WriteLine($"Format Exception: {e.Message}");
@@ -44,29 +57,34 @@ namespace Numbers_Game
             {
                 Console.WriteLine($"Overflow Exception: {e.Message}");
             }
+            catch (IndexOutOfRangeException e)
+            {
+                Console.WriteLine($"Index out of range: {e.Message}");
+            }
             catch (Exception e)
             {
                 Console.WriteLine($"Default Exception: {e.Message}");
             }
-            Console.WriteLine($"Your array is size: {inputSize}");
-            Console.WriteLine($"The number in the array are: {GetNumbersInArray(inputArray)}");
-            Console.WriteLine($"The sum of the array is: {sum}");
-            Console.WriteLine($"{sum} * {product / sum} = {product}");
-            Console.WriteLine($"{product} / {product / quotient} = {quotient}");
         }
 
+        //Populates array with users input
         static int[] Populate(int[] arr)
         {
+            string input;
             for (int i = 0; i < arr.Length; i++)
             {
                 Console.WriteLine($"Please enter a number {i} of {arr.Length}");
-                int input = Convert.ToInt32(Console.ReadLine());
-                arr[i] = input;
+
+                input = Console.ReadLine();
+                int convertedInput = Convert.ToInt32(input);
+                arr[i] = convertedInput;
+
                 Console.WriteLine(GetNumbersInArray(arr));
             }
             return arr;
         }
 
+        //Get total of populated array
         static int GetSum(int[] arr)
         {
             int sum = 0;
@@ -74,43 +92,50 @@ namespace Numbers_Game
             {
                 sum += num;
             }
-            if (sum < 20) 
-            {
-                throw (new Exception($"Value of {sum} is too low"));
-            }
-            return sum;
+            //throws exception if sum is less than 20
+            return sum < 20 ? throw (new Exception($"Value of {sum} is too low")) : sum;
         }
-        
+
+        //Method that produces the product of the sum of populated and a user input depending on array length        
         static int GetProduct(int [] arr, int sum)
         {
-            int product = 1;
-            int input = 0;
+            int product;
+            string input;
+
+            Console.Write($"Select a random number between 1 and {arr.Length} ");
+            Console.Write($"to multiply {sum} with value: ");
+            input = Console.ReadLine();
+            int convertedInput = Convert.ToInt32(input);
+
             try
             {
-                Console.Write($"Select a random index number between 0 and {arr.Length - 1} ");
-                Console.Write($"to multiply {sum} with value: ");
-                input = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine($"You chose index: {input} with value: {arr[input]}");
-                product = GetSum(arr) * arr[input];
+                product = sum * arr[convertedInput - 1];
 
             }
-            catch (OverflowException e)
+
+            //cathes exception if user input is out of bounds of array length
+            catch (IndexOutOfRangeException e)
             {
-                Console.WriteLine($"Index out of range: {e.Message}");
+                Console.WriteLine($"{convertedInput} unreachable. {e.Message}");
                 throw;
             }
-            Console.WriteLine($"The value of {sum} * {input} is {product}.");
-            return product; 
+            return product;
         }
 
+        //Method that produces quotient of product (method above) and a user input
         static Decimal GetQuotient(int prod)
         {
             try
             {
-                Console.WriteLine($"Enter a number to divide your product of {prod} by: ");
-                int input = Convert.ToInt32(Console.ReadLine());
-                return Decimal.Divide(prod, input);   
+                Console.WriteLine($"Enter a number to divide your product of {prod}: ");
+
+                string input = Console.ReadLine();
+                int convertedInput = Convert.ToInt32(input);
+
+                return Decimal.Divide(prod, convertedInput);   
             }
+
+            //catch exception if user input is 0
             catch (DivideByZeroException e)
             {
                 Console.WriteLine ($"Cannot divide by 0: {e.Message}");
@@ -118,6 +143,7 @@ namespace Numbers_Game
             }
         }
 
+        //runs app
         static void Main(string[] args)
         {
             try
