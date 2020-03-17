@@ -20,8 +20,8 @@ namespace Numbers_Game
         ------------Instantiate a new integer array that is the size the user just inputted.
         ---------Call the Populate method.
         ------arguments: integer array
-        Capture the sum by calling the GetSum method.
-        arguments: integer array
+        ------Capture the sum by calling the GetSum method.
+        --------arguments: integer array
         Capture the product by calling the GetProduct method.
         integer array and integer sum
         Capture the quotient by calling the GetQuotient method.
@@ -38,6 +38,7 @@ namespace Numbers_Game
                 int [] inputArray = new int[sizeInput];
                 Populate(inputArray);
                 Console.WriteLine(GetSum(inputArray));
+                Console.WriteLine(GetProduct(inputArray));
             }
             catch (Exception)
             {
@@ -93,8 +94,8 @@ namespace Numbers_Game
         }
 
         /*The logic within the method should:
-        Ask the user the select a random number between 1 and the length of the integer array.
-        Declare a new variable named product
+        ------Ask the user the select a random number between 1 and the length of the integer array.
+        ------Declare a new variable named product
         Multiply sum by the random number index that the user selected from the array (example: array[randomNumber]). Set this value to the product variable.
         Return the product variable.
         Expected Exceptions:
@@ -106,7 +107,11 @@ namespace Numbers_Game
         {
             try
             {
-                
+                int product = 1;
+                Console.WriteLine($"Select a random number between 1 and {arr.Length}");
+                int input = Convert.ToInt32(Console.ReadLine());
+                product = GetSum(arr) * arr[input];
+                return product; 
             }
             catch (Exception)
             {
